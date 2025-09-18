@@ -3,7 +3,6 @@ package com.ks.taskmanager.controller;
 import com.ks.taskmanager.entity.User;
 import com.ks.taskmanager.repository.UserRepository;
 import com.ks.taskmanager.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +30,7 @@ public class UserContoller {
         return userRepository.findAll();
     }
 
+    // Get info of the current user
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(){
         return ResponseEntity.ok((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -48,6 +48,7 @@ public class UserContoller {
         return ResponseEntity.ok(userRepository.save(user));
     }
 
+    // Get the token for Auth
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User loginRequest){
         User user =userRepository.findByUsername(loginRequest.getUsername())
